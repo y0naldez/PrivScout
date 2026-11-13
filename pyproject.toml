@@ -1,0 +1,38 @@
+[build-system]
+requires = ["hatchling>=1.24"]
+build-backend = "hatchling.build"
+
+[project]
+name = "privesc-triage"
+version = "1.0.0"
+description = "Offline-first triage for authorized Linux privilege-escalation enumeration"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "PrivScout contributors" }]
+keywords = ["pentesting", "linux", "privilege-escalation", "ctf", "triage"]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Environment :: Console",
+  "Intended Audience :: Information Technology",
+  "Intended Audience :: System Administrators",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.11",
+  "Topic :: Security",
+  "Topic :: Utilities",
+]
+dependencies = [
+  "typer>=0.12,<1",
+  "rich>=13.7,<15",
+  "PyYAML>=6.0,<7",
+  "httpx>=0.27,<1",
+]
+
+[project.scripts]
+privscout = "privesc_triage.cli:app"
+
+[tool.hatch.build.targets.wheel]
+packages = ["privesc_triage"]

@@ -1,0 +1,18 @@
+_metadata:
+  source: "PrivScout maintained risk model"
+  description: "Configurable triage heuristics; not Linux capability semantics"
+cap_setuid: {risk: critical, base_score: 70}
+cap_setgid: {risk: high, base_score: 55}
+cap_dac_override: {risk: critical, base_score: 70}
+cap_dac_read_search: {risk: high, base_score: 60}
+cap_sys_admin: {risk: critical, base_score: 80}
+cap_sys_module: {risk: critical, base_score: 80}
+cap_sys_rawio: {risk: critical, base_score: 75}
+cap_sys_ptrace: {risk: high, base_score: 65}
+cap_chown: {risk: medium, base_score: 40}
+cap_fowner: {risk: medium, base_score: 45}
+cap_sys_chroot: {risk: medium, base_score: 35}
+cap_net_admin: {risk: medium, base_score: 30}
+cap_net_raw: {risk: low, base_score: 10}
+cap_net_bind_service: {risk: low, base_score: 5}
+cap_audit_write: {risk: low, base_score: 5}

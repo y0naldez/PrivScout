@@ -1,0 +1,19 @@
+_metadata:
+  source: "Linux capabilities(7), Linux man-pages"
+  source_url: "https://man7.org/linux/man-pages/man7/capabilities.7.html"
+  description: "Concise capability semantics; authoritative facts, not risk ratings"
+cap_setuid: {category: identity, description: "Manipulate process UIDs", description_es: "Manipular los UID de los procesos"}
+cap_setgid: {category: identity, description: "Manipulate process GIDs and supplementary groups", description_es: "Manipular los GID de los procesos y los grupos suplementarios"}
+cap_dac_override: {category: filesystem, description: "Bypass discretionary file read, write, and execute checks", description_es: "Omitir las comprobaciones discrecionales de lectura, escritura y ejecución de archivos"}
+cap_dac_read_search: {category: filesystem, description: "Bypass discretionary file read and directory search checks", description_es: "Omitir las comprobaciones discrecionales de lectura de archivos y búsqueda en directorios"}
+cap_sys_ptrace: {category: process, description: "Trace arbitrary processes subject to kernel restrictions", description_es: "Rastrear procesos arbitrarios sujeto a las restricciones del kernel"}
+cap_sys_admin: {category: system, description: "Perform a broad set of system-administration operations", description_es: "Realizar una amplia variedad de operaciones de administración del sistema"}
+cap_chown: {category: filesystem, description: "Make arbitrary changes to file UIDs and GIDs", description_es: "Cambiar arbitrariamente los UID y GID de archivos"}
+cap_fowner: {category: filesystem, description: "Bypass permission checks normally requiring file ownership", description_es: "Omitir comprobaciones de permisos que normalmente exigen ser propietario del archivo"}
+cap_net_raw: {category: network, description: "Use RAW and PACKET sockets", description_es: "Usar sockets RAW y PACKET"}
+cap_net_bind_service: {category: network, description: "Bind sockets to privileged ports", description_es: "Enlazar sockets a puertos privilegiados"}
+cap_net_admin: {category: network, description: "Perform network-administration operations", description_es: "Realizar operaciones de administración de red"}
+cap_sys_chroot: {category: system, description: "Use chroot", description_es: "Usar chroot"}
+cap_sys_module: {category: kernel, description: "Load and unload kernel modules", description_es: "Cargar y descargar módulos del kernel"}
+cap_sys_rawio: {category: kernel, description: "Perform raw I/O operations", description_es: "Realizar operaciones de E/S sin procesar"}
+cap_audit_write: {category: audit, description: "Write records to the kernel auditing log", description_es: "Escribir registros en el log de auditoría del kernel"}

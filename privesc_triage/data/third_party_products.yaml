@@ -1,0 +1,115 @@
+_metadata:
+  source: "PrivScout maintained third-party product catalog"
+  description: "Conservative path signatures and offline vulnerability references for uncommon privileged software"
+  updated: "2026-09-15"
+products:
+  serv-u:
+    product: "Serv-U"
+    vendor: "SolarWinds"
+    software_type: "third-party"
+    canonical_names: [serv-u]
+    product_aliases: ["serv-u ftp server", "solarwinds serv-u", "serv-u"]
+    path_patterns:
+      - '^/usr/local/Serv-U/Serv-U$'
+    confidence: "probable-path"
+    suggested_checks:
+      - 'file {path}'
+      - 'ls -la {path}'
+      - '{path} --version'
+      - "strings {path} | grep -Ei 'version|serv-u'"
+      - 'dpkg -S {path} 2>/dev/null'
+      - 'rpm -qf {path} 2>/dev/null'
+    exploitdb:
+      - id: 47009
+        source: "Exploit-DB"
+        title: "Serv-U FTP Server < 15.1.7 - Local Privilege Escalation (1)"
+        platform: "Linux"
+        type: "local"
+        reference: "https://www.exploit-db.com/exploits/47009"
+      - id: 47173
+        source: "Exploit-DB"
+        title: "Serv-U FTP Server < 15.1.7 - Local Privilege Escalation (2)"
+        platform: "Multiple"
+        type: "local"
+        reference: "https://www.exploit-db.com/exploits/47173"
+      - id: 47072
+        source: "Exploit-DB"
+        title: "Serv-U FTP Server - prepareinstallation Privilege Escalation (Metasploit)"
+        platform: "Linux"
+        type: "local"
+        reference: "https://www.exploit-db.com/exploits/47072"
+    vulnerabilities:
+      - id: "CVE-2019-12181"
+        source: "CVE Program"
+        status: "possible"
+        platform: "Linux"
+        affected: "versions before 15.1.7"
+        affected_es: "versiones anteriores a 15.1.7"
+        fixed: "15.1.7"
+        reference: "https://www.cve.org/CVERecord?id=CVE-2019-12181"
+        vendor_reference: "https://documentation.solarwinds.com/en/success_center/servu/Content/Release_Notes/Servu_15-1-7_release_notes.htm"
+    applicability: "Requires confirming Linux, root ownership, the SUID bit, and a version before 15.1.7."
+    applicability_es: "requiere confirmar Linux, propietario root y versión < 15.1.7"
+    recommendation: "Identify the installed version before validating any exploit."
+    recommendation_es: "identificar la versión antes de validar el exploit"
+  apache-hadoop-container-executor:
+    product: "Apache Hadoop container-executor"
+    vendor: "Apache Software Foundation"
+    software_type: "third-party"
+    canonical_names: [container-executor]
+    product_aliases: ["apache hadoop", "hadoop container-executor", "container-executor"]
+    path_patterns:
+      - '^/opt/hadoop/bin/container-executor$'
+    confidence: "probable-path"
+    suggested_checks:
+      - 'file {path}'
+      - 'ls -la {path}'
+      - "readelf -d {path} | grep -E 'RUNPATH|RPATH'"
+      - "strings {path} | grep -Ei 'hadoop|version|container-executor'"
+      - 'dpkg -S {path} 2>/dev/null'
+      - 'rpm -qf {path} 2>/dev/null'
+    exploitdb: []
+    vulnerabilities:
+      - id: "CVE-2023-26031"
+        source: "CVE Program"
+        status: "possible"
+        platform: "Linux"
+        affected: "Apache Hadoop 3.3.1 through 3.3.4"
+        affected_es: "Apache Hadoop desde 3.3.1 hasta 3.3.4"
+        fixed: "3.3.5"
+        reference: "https://www.cve.org/CVERecord?id=CVE-2023-26031"
+        vendor_reference: "https://issues.apache.org/jira/browse/YARN-11441"
+    applicability: "Requires root ownership, the SUID bit, Hadoop 3.3.1-3.3.4, and a relative ../lib/native RUNPATH or RPATH."
+    applicability_es: "requiere propietario root, bit SUID, Hadoop 3.3.1-3.3.4 y un RUNPATH o RPATH relativo con ../lib/native"
+    recommendation: "Inspect RUNPATH/RPATH and identify the Hadoop version before validating the vulnerability."
+    recommendation_es: "revisar RUNPATH/RPATH e identificar la versión de Hadoop antes de validar la vulnerabilidad"
+  ktsuss:
+    product: "ktsuss"
+    vendor: "ktsuss project"
+    software_type: "third-party"
+    canonical_names: [ktsuss]
+    product_aliases: ["ktsuss"]
+    path_patterns:
+      - '^/usr/bin/ktsuss$'
+    confidence: "probable-path"
+    suggested_checks:
+      - 'file {path}'
+      - 'ls -la {path}'
+      - '{path} --version'
+      - "strings {path} | grep -Ei 'ktsuss|version'"
+      - 'dpkg -S {path} 2>/dev/null'
+      - 'rpm -qf {path} 2>/dev/null'
+    exploitdb: []
+    vulnerabilities:
+      - id: "CVE-2011-2921"
+        source: "CVE Program"
+        status: "possible"
+        platform: "Linux"
+        affected: "versions 1.4 and earlier"
+        affected_es: "versiones 1.4 y anteriores"
+        fixed: "later than 1.4"
+        reference: "https://www.cve.org/CVERecord?id=CVE-2011-2921"
+    applicability: "Requires confirming root ownership, the SUID bit, and ktsuss version 1.4 or earlier."
+    applicability_es: "requiere confirmar propietario root, bit SUID y ktsuss 1.4 o anterior"
+    recommendation: "Identify the installed version and ownership before validating the vulnerability."
+    recommendation_es: "identificar la versión instalada y el propietario antes de validar la vulnerabilidad"

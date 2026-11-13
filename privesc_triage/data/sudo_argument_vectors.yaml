@@ -1,0 +1,8 @@
+_metadata:
+  source: "PrivScout maintained sudo argument knowledge"
+  description: "Argument-aware routes emitted only when the sudoers pattern supports the shown syntax"
+
+tar:
+  - id: tar-checkpoint-trailing-wildcard
+    matcher: tar-create-trailing-standalone-wildcard
+    type: wildcard-injection-candidate

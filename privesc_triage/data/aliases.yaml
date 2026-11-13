@@ -1,0 +1,31 @@
+_metadata:
+  source: "PrivScout maintained aliases"
+  description: "Conservative binary-name normalization patterns"
+php:
+  patterns: ['^php(?:[0-9]+(?:\.[0-9]+)*)?$']
+python:
+  patterns:
+    - '^python(?:[0-9]+(?:\.[0-9]+)*)?$'
+    # Example of a renamed but interactive CPython executable.
+    # interpreter protected by a group and carrying CAP_SETUID.
+    - '^admin_python(?:[0-9]+(?:\.[0-9]+)*)?$'
+perl:
+  patterns: ['^perl(?:[0-9]+(?:\.[0-9]+)*)?$']
+ruby:
+  patterns: ['^ruby(?:[0-9]+(?:\.[0-9]+)*)?$']
+vim:
+  patterns: ['^vim(?:\.basic|\.tiny)?$', '^view$']
+vi:
+  patterns: ['^vi$']
+node:
+  patterns: ['^node(?:js)?$']
+lua:
+  patterns: ['^lua(?:[0-9]+(?:\.[0-9]+)*)?$']
+sh:
+  patterns: ['^sh$']
+bash:
+  patterns: ['^bash$']
+dash:
+  patterns: ['^dash$']
+zsh:
+  patterns: ['^zsh$']

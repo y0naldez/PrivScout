@@ -1,0 +1,98 @@
+_metadata:
+  source: "PrivScout maintained capability-to-binary correlations"
+  description: "Narrow actions supported by Linux capability semantics and validated against public lab behavior"
+gdb:
+  - function: process-injection
+    required_all: [cap_sys_ptrace]
+    title: "Attach to a privileged process"
+    title_es: "Adjuntarse a un proceso privilegiado"
+    description: "Use GDB's ptrace support to inspect or control a process running under a more privileged identity."
+    description_es: "Usa la compatibilidad de GDB con ptrace para inspeccionar o controlar un proceso que se ejecuta con una identidad más privilegiada."
+    why: "cap_sys_ptrace permits tracing arbitrary processes; GDB exposes that operation directly."
+    why_es: "cap_sys_ptrace permite rastrear procesos arbitrarios y GDB expone directamente esa operación."
+    command: "gdb -p <privileged-pid>"
+    notes:
+      - "A suitable privileged process must be running and attachable; Yama, namespaces, seccomp, or missing symbols can still block the path."
+      - "Attaching can pause or destabilize the target process; validate the impact before proceeding."
+    notes_es:
+      - "Debe existir un proceso privilegiado adecuado al que sea posible adjuntarse; Yama, los namespaces, seccomp o la falta de símbolos aún pueden bloquear la técnica."
+      - "Adjuntarse puede pausar o desestabilizar el proceso objetivo; valida el impacto antes de continuar."
+    reference: "https://man7.org/linux/man-pages/man7/capabilities.7.html"
+    expanded_reference: "https://gtfobins.github.io/gtfobins/gdb/"
+    priority: 15
+tcpdump:
+  - function: packet-capture
+    required_all: [cap_net_admin, cap_net_raw]
+    title: "Capture restricted network traffic"
+    title_es: "Capturar tráfico de red restringido"
+    description: "Capture traffic from interfaces that an ordinary user may not be able to monitor."
+    description_es: "Captura tráfico de interfaces que un usuario normal quizá no pueda supervisar."
+    why: "cap_net_raw enables packet sockets and cap_net_admin enables privileged network operations used by packet capture."
+    why_es: "cap_net_raw habilita sockets de paquetes y cap_net_admin permite las operaciones de red privilegiadas que utiliza la captura."
+    command: "tcpdump -i any -w /path/to/capture.pcap"
+    notes:
+      - "This is an information-gathering path, not a root shell by itself; its value depends on traffic containing useful data."
+      - "Capture only traffic covered by the assessment authorization."
+    notes_es:
+      - "Esta es una vía de recopilación de información, no una shell de root por sí sola; su utilidad depende de que el tráfico contenga datos aprovechables."
+      - "Captura únicamente el tráfico incluido en la autorización de la evaluación."
+    reference: "https://man7.org/linux/man-pages/man7/capabilities.7.html"
+    expanded_reference: "https://gtfobins.github.io/gtfobins/tcpdump/"
+    priority: 35
+vim:
+  - function: shell
+    required_all: [cap_setuid]
+    title: "Set UID 0 through Vim's embedded Python"
+    title_es: "Establecer el UID 0 mediante el Python integrado en Vim"
+    description: "Use a Python-enabled Vim build to call setuid(0) before starting a shell."
+    description_es: "Usa una compilación de Vim con Python para llamar a setuid(0) antes de iniciar una shell."
+    why: "cap_setuid permits UID changes and Vim can expose that system call through its embedded Python interpreter."
+    why_es: "cap_setuid permite cambiar el UID y Vim puede exponer esa llamada mediante su intérprete de Python integrado."
+    command: "vim -c ':py3 import os; os.setuid(0); os.execl(\"/bin/sh\", \"sh\")'"
+    notes:
+      - "This requires Vim to be compiled with Python 3 support; check :version for +python3 before relying on the path."
+      - "A restricted Vim build, sandbox, LSM policy, or namespace mapping can still block the technique."
+    notes_es:
+      - "Vim debe estar compilado con compatibilidad para Python 3; comprueba que :version muestre +python3 antes de confiar en esta ruta."
+      - "Una compilación restringida de Vim, su sandbox, una política LSM o el mapeo del namespace aún pueden bloquear la técnica."
+    reference: "https://man7.org/linux/man-pages/man7/capabilities.7.html"
+    expanded_reference: "https://tryhackme.com/room/linprivesc"
+    priority: 10
+ruby:
+  - function: file-ownership
+    required_all: [cap_chown]
+    title: "Change ownership of a protected file"
+    title_es: "Cambiar el propietario de un archivo protegido"
+    description: "Use Ruby's file API to change the UID and GID of a file that the current user does not own."
+    description_es: "Usa la API de archivos de Ruby para cambiar el UID y GID de un archivo que no pertenece al usuario actual."
+    why: "cap_chown permits arbitrary file ownership changes and Ruby exposes chown through File.chown."
+    why_es: "cap_chown permite cambiar arbitrariamente el propietario de archivos y Ruby expone chown mediante File.chown."
+    command: "ruby -e 'File.chown(<uid>, <gid>, \"/path/to/target\")'"
+    notes:
+      - "Changing ownership is not a shell by itself; the impact depends on a carefully validated target and its remaining mode bits."
+      - "Record the original UID and GID and avoid changing authentication files outside the assessment scope."
+    notes_es:
+      - "Cambiar el propietario no produce una shell por sí solo; el impacto depende del archivo elegido y de sus bits de modo restantes."
+      - "Registra el UID y GID originales y no cambies archivos de autenticación fuera del alcance autorizado."
+    reference: "https://man7.org/linux/man-pages/man7/capabilities.7.html"
+    expanded_reference: "https://tryhackme.com/room/empline"
+    priority: 25
+perl:
+  - function: file-permissions
+    required_all: [cap_fowner]
+    title: "Change permissions on a protected file"
+    title_es: "Cambiar los permisos de un archivo protegido"
+    description: "Use Perl's chmod operation despite not owning the target file."
+    description_es: "Usa la operación chmod de Perl aunque el archivo objetivo pertenezca a otro usuario."
+    why: "cap_fowner bypasses checks that normally require file ownership for chmod, and Perl exposes chmod directly."
+    why_es: "cap_fowner omite las comprobaciones que normalmente exigen ser propietario para usar chmod y Perl expone esa operación directamente."
+    command: "perl -e 'chmod 0777, \"/path/to/target\"'"
+    notes:
+      - "Changing mode bits is not a shell by itself; validate the target, ACLs, immutable attributes, and the least invasive useful mode."
+      - "Record and restore the original mode after the authorized test."
+    notes_es:
+      - "Cambiar los bits de modo no produce una shell por sí solo; valida el objetivo, sus ACL, atributos inmutables y el modo menos invasivo que resulte útil."
+      - "Registra y restaura el modo original después de la prueba autorizada."
+    reference: "https://man7.org/linux/man-pages/man7/capabilities.7.html"
+    expanded_reference: "https://tryhackme.com/room/plottedemr"
+    priority: 25

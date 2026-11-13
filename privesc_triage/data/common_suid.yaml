@@ -1,0 +1,101 @@
+_metadata:
+  source: "PrivScout maintained package-path baseline"
+  description: "Expected SUID package paths for noise reduction; expected does not mean safe or patched"
+entries:
+  at:
+    paths: [/usr/bin/at]
+    source: "Ubuntu/Debian at package"
+  chfn:
+    paths: [/usr/bin/chfn, "/snap/core[0-9]*/[0-9]*/usr/bin/chfn"]
+    source: "Ubuntu/Debian passwd package and Ubuntu base snaps"
+  chsh:
+    paths: [/usr/bin/chsh, "/snap/core[0-9]*/[0-9]*/usr/bin/chsh"]
+    source: "Ubuntu/Debian passwd package and Ubuntu base snaps"
+  dbus-daemon-launch-helper:
+    paths:
+      - /usr/lib/dbus-1.0/dbus-daemon-launch-helper
+      - "/snap/core[0-9]*/[0-9]*/usr/lib/dbus-1.0/dbus-daemon-launch-helper"
+    source: "Ubuntu/Debian dbus package and Ubuntu base snaps"
+  fusermount:
+    paths: [/usr/bin/fusermount, /bin/fusermount]
+    source: "Ubuntu/Debian fuse package"
+  fusermount3:
+    paths: [/usr/bin/fusermount3, /bin/fusermount3]
+    source: "Ubuntu/Debian fuse3 package"
+  gpasswd:
+    paths: [/usr/bin/gpasswd, "/snap/core[0-9]*/[0-9]*/usr/bin/gpasswd"]
+    source: "Ubuntu/Debian passwd package and Ubuntu base snaps"
+  mount:
+    paths:
+      - /usr/bin/mount
+      - /bin/mount
+      - "/snap/core[0-9]*/[0-9]*/usr/bin/mount"
+      - "/snap/core[0-9]*/[0-9]*/bin/mount"
+    source: "Ubuntu/Debian util-linux package and Ubuntu base snaps"
+  mount.nfs:
+    paths: [/usr/sbin/mount.nfs, /sbin/mount.nfs]
+    source: "Ubuntu/Debian nfs-common package"
+  newgrp:
+    paths: [/usr/bin/newgrp, "/snap/core[0-9]*/[0-9]*/usr/bin/newgrp"]
+    source: "Ubuntu/Debian login package and Ubuntu base snaps"
+  passwd:
+    paths: [/usr/bin/passwd, "/snap/core[0-9]*/[0-9]*/usr/bin/passwd"]
+    source: "Ubuntu/Debian passwd package and Ubuntu base snaps"
+  pppd:
+    paths: [/usr/sbin/pppd, /sbin/pppd]
+    source: "Ubuntu/Debian ppp package"
+  ping:
+    paths:
+      - /usr/bin/ping
+      - /bin/ping
+      - "/snap/core[0-9]*/[0-9]*/usr/bin/ping"
+      - "/snap/core[0-9]*/[0-9]*/bin/ping"
+    source: "Ubuntu/Debian iputils package and Ubuntu base snaps"
+  pkexec:
+    paths: [/usr/bin/pkexec]
+    source: "Ubuntu/Debian polkit package"
+  polkit-agent-helper-1:
+    paths:
+      - /usr/libexec/polkit-agent-helper-1
+      - /usr/lib/polkit-1/polkit-agent-helper-1
+      - /usr/lib/policykit-1/polkit-agent-helper-1
+    source: "Ubuntu/Debian polkit package"
+  snap-confine:
+    paths:
+      - /usr/lib/snapd/snap-confine
+      - "/snap/snapd/[0-9]*/usr/lib/snapd/snap-confine"
+    source: "Ubuntu snapd package and snapd snap"
+  ssh-keysign:
+    paths:
+      - /usr/lib/openssh/ssh-keysign
+      - "/snap/core[0-9]*/[0-9]*/usr/lib/openssh/ssh-keysign"
+    source: "Ubuntu/Debian openssh-client package and Ubuntu base snaps"
+  su:
+    paths:
+      - /usr/bin/su
+      - /bin/su
+      - "/snap/core[0-9]*/[0-9]*/usr/bin/su"
+      - "/snap/core[0-9]*/[0-9]*/bin/su"
+    source: "Ubuntu/Debian util-linux package and Ubuntu base snaps"
+  sudo:
+    paths: [/usr/bin/sudo, "/snap/core[0-9]*/[0-9]*/usr/bin/sudo"]
+    source: "Ubuntu/Debian sudo package and Ubuntu base snaps"
+  umount:
+    paths:
+      - /usr/bin/umount
+      - /bin/umount
+      - "/snap/core[0-9]*/[0-9]*/usr/bin/umount"
+      - "/snap/core[0-9]*/[0-9]*/bin/umount"
+    source: "Ubuntu/Debian util-linux package and Ubuntu base snaps"
+  unix_chkpwd:
+    paths: [/usr/sbin/unix_chkpwd, /sbin/unix_chkpwd]
+    source: "Ubuntu/Debian libpam-modules package"
+  ntfs-3g:
+    paths: [/usr/bin/ntfs-3g, /bin/ntfs-3g]
+    source: "Ubuntu/Debian ntfs-3g package"
+  dmcrypt-get-device:
+    paths: [/usr/lib/eject/dmcrypt-get-device]
+    source: "Ubuntu/Debian eject package"
+  cockpit-session:
+    paths: [/usr/lib/cockpit/cockpit-session, /usr/libexec/cockpit-session]
+    source: "Cockpit package"

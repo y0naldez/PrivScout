@@ -1,0 +1,22 @@
+_metadata:
+  source: "PrivScout scoring policy"
+  description: "Central deterministic score modifiers; values are heuristics"
+factors:
+  suid_present: 20
+  gtfo_current_context: 55
+  unknown_custom: 50
+  high_utility: 15
+  unusual_location: 10
+  expected_suid: -20
+  nopasswd: 15
+  runas_privileged: 20
+  unrestricted_sudo: 10
+  restricted_arguments: -20
+  wildcard_arguments: 10
+  negated_rule: -100
+  custom_binary: 20
+  custom_unrestricted_nopasswd_root: 20
+  effective_permitted: 5
+  gtfo_capability: 25
+  contextual_capability: 25
+  unexpected_capability: 15

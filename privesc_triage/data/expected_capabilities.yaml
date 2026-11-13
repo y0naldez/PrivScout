@@ -1,0 +1,52 @@
+_metadata:
+  source: "PrivScout maintained package-path baseline"
+  description: "Exact binary, path, capability and flag combinations; expected does not mean safe or patched"
+ping:
+  capabilities: [cap_net_raw]
+  required_flags: ep
+  paths:
+    - /usr/bin/ping
+    - /bin/ping
+    - "/snap/core[0-9]*/[0-9]*/usr/bin/ping"
+    - "/snap/core[0-9]*/[0-9]*/bin/ping"
+  classification: expected
+  score_modifier: -25
+  source: "Common iputils deployment pattern"
+ping6:
+  capabilities: [cap_net_raw]
+  required_flags: ep
+  paths: [/usr/bin/ping6, /bin/ping6]
+  classification: expected
+  score_modifier: -25
+  source: "Common iputils deployment pattern"
+traceroute:
+  capabilities: [cap_net_raw]
+  required_flags: ep
+  paths: [/usr/bin/traceroute, /usr/bin/traceroute6.iputils]
+  classification: expected
+  score_modifier: -15
+  source: "Common traceroute deployment pattern"
+traceroute6.iputils:
+  capabilities: [cap_net_raw]
+  required_flags: ep
+  paths: [/usr/bin/traceroute6.iputils]
+  classification: expected
+  score_modifier: -15
+  source: "Common iputils deployment pattern"
+mtr-packet:
+  capabilities: [cap_net_raw]
+  required_flags: ep
+  paths: [/usr/bin/mtr-packet]
+  classification: expected
+  score_modifier: -15
+  source: "Debian mtr package installation pattern"
+gst-ptp-helper:
+  capability_sets:
+    - [cap_net_bind_service, cap_net_admin]
+    - [cap_net_bind_service, cap_net_admin, cap_sys_nice]
+  required_flags: ep
+  paths:
+    - "/usr/lib/*-linux-gnu/gstreamer1.0/gstreamer-1.0/gst-ptp-helper"
+  classification: expected
+  score_modifier: -35
+  source: "Debian/Ubuntu GStreamer package installation pattern"

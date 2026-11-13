@@ -1,0 +1,94 @@
+_metadata:
+  source: "GTFOBins function taxonomy"
+  source_url: "https://github.com/GTFOBins/GTFOBins.github.io/blob/master/_data/functions.yml"
+  description: "Operator-facing labels, explanations, and display priority for GTFOBins functions"
+shell:
+  label: "Spawn a shell"
+  label_es: "Abrir una shell"
+  description: "Start an interactive system shell in the binary's effective security context."
+  description_es: "Inicia una shell interactiva con el contexto de seguridad efectivo del binario."
+  priority: 10
+command:
+  label: "Run a command"
+  label_es: "Ejecutar un comando"
+  description: "Execute non-interactive system commands in the binary's effective security context."
+  description_es: "Ejecuta comandos no interactivos con el contexto de seguridad efectivo del binario."
+  priority: 20
+process-injection:
+  label: "Attach to a privileged process"
+  label_es: "Adjuntarse a un proceso privilegiado"
+  description: "Inspect or control a more privileged process through a debugger or tracing interface."
+  description_es: "Inspecciona o controla un proceso más privilegiado mediante un depurador o una interfaz de rastreo."
+  priority: 15
+packet-capture:
+  label: "Capture restricted network traffic"
+  label_es: "Capturar tráfico de red restringido"
+  description: "Capture traffic that may expose sensitive application or authentication data."
+  description_es: "Captura tráfico que podría revelar datos confidenciales de aplicaciones o autenticación."
+  priority: 35
+privilege-escalation:
+  label: "Enable privilege escalation"
+  label_es: "Habilitar una escalada de privilegios"
+  description: "Indirectly obtain elevated privileges, for example by changing ownership or mode bits."
+  description_es: "Obtiene privilegios elevados de forma indirecta, por ejemplo, al cambiar propietarios o bits de modo."
+  priority: 5
+file-ownership:
+  label: "Change protected file ownership"
+  label_es: "Cambiar el propietario de un archivo protegido"
+  description: "Change a protected file's UID or GID through an operation directly enabled by the observed capability."
+  description_es: "Cambia el UID o GID de un archivo protegido mediante una operación habilitada directamente por la capability observada."
+  priority: 25
+file-permissions:
+  label: "Change protected file permissions"
+  label_es: "Cambiar los permisos de un archivo protegido"
+  description: "Change mode bits on a protected file through an operation directly enabled by the observed capability."
+  description_es: "Cambia los bits de modo de un archivo protegido mediante una operación habilitada directamente por la capability observada."
+  priority: 25
+file-read:
+  label: "Read protected files"
+  label_es: "Leer archivos protegidos"
+  description: "Read data from a local file that the current user may not normally be allowed to access."
+  description_es: "Lee datos de un archivo local al que el usuario actual normalmente no tendría acceso."
+  priority: 30
+file-write:
+  label: "Write protected files"
+  label_es: "Escribir en archivos protegidos"
+  description: "Write data to a local file in the binary's effective security context."
+  description_es: "Escribe datos en un archivo local con el contexto de seguridad efectivo del binario."
+  priority: 40
+library-load:
+  label: "Load a library"
+  label_es: "Cargar una biblioteca"
+  description: "Load a shared library and run code in the binary's effective security context."
+  description_es: "Carga una biblioteca compartida y ejecuta código con el contexto de seguridad efectivo del binario."
+  priority: 50
+inherit:
+  label: "Inherit another technique"
+  label_es: "Heredar otra técnica"
+  description: "Reach functions exposed by another executable or runtime."
+  description_es: "Accede a funciones expuestas por otro ejecutable o entorno de ejecución."
+  priority: 60
+upload:
+  label: "Upload a file"
+  label_es: "Enviar un archivo"
+  description: "Send local data to another system."
+  description_es: "Envía datos locales a otro sistema."
+  priority: 65
+download:
+  label: "Download a file"
+  label_es: "Descargar un archivo"
+  description: "Retrieve remote data onto the local system."
+  description_es: "Recupera datos remotos en el sistema local."
+  priority: 66
+reverse-shell:
+  label: "Open a reverse shell"
+  label_es: "Abrir una shell inversa"
+  description: "Connect a system shell back to a listening host."
+  description_es: "Conecta una shell del sistema a un host que está a la escucha."
+  priority: 70
+bind-shell:
+  label: "Open a bind shell"
+  label_es: "Abrir una shell enlazada a un puerto"
+  description: "Bind a system shell to a local port."
+  description_es: "Expone una shell del sistema en un puerto local."
+  priority: 80

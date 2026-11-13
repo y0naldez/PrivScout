@@ -1,0 +1,9 @@
+_metadata:
+  source: "PrivScout maintained taxonomy"
+  description: "General-purpose binaries that increase contextual impact"
+interpreters: [python, perl, ruby, php, node, lua]
+shells: [bash, sh, dash, zsh]
+editors: [vim, vi, nano, emacs]
+archive_tools: [tar, zip, unzip, 7z]
+package_managers: [apt, apt-get, dpkg, rpm, yum, dnf, pip, npm]
+service_managers: [systemctl, service]
